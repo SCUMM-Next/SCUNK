@@ -1,0 +1,8 @@
+Package:
+  ☐ Add tool-help package (namespace import to `th`)
+    ☐ Should expose a single `help(<help.json>)` function
+      ☐ Load name of tool from `.json`
+      ☐ Usage (Cobra/Viper?)
+      ☐ Colorful text
+      Alternatively:
+        ☐ https://github.com/spf13/cobra/blob/main/doc/README.md
