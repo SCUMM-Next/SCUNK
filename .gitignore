@@ -1,2 +1,4 @@
 build.*/
 config.*.mak
+
+.DS_STORE

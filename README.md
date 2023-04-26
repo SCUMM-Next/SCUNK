@@ -1,4 +1,14 @@
+This is a recently renewed effort to both modernize and trim down the original ScummC.
 
+Some of my older code can be found in the [WIP Branch](https://github.com/SCUMM-Next/SCUNK/tree/WIP) and not everything is versioned online, yet.
+
+* For planned features and general changes, check out [GitHub Issues](https://github.com/SCUMM-Next/SCUNK/issues).
+* Most of the documentation currently still lives inside the old [ScummC Wiki](https://github.com/AlbanBedel/scummc/wiki).
+  * Future documentation will live on my [microsite](https://scumm-next.github.io/SCUMM-Notes/) on the topic.
+
+**More changes to come.**
+
+# 𝓞𝓻𝓲𝓰𝓲𝓷𝓪𝓵 𝓡𝓔𝓐𝓓𝓜𝓔
 
 # ScummC - A Scumm Compiler
 
