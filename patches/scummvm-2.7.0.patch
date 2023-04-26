@@ -1,0 +1,55 @@
+From ab6abe6127e4aafe3cd27b368667ceb2e16af080 Mon Sep 17 00:00:00 2001
+From: markusbkk <happyferret2022@gmail.com>
+Date: Wed, 26 Apr 2023 12:06:34 +0200
+Subject: [PATCH] ScummVM 2.7.0 detection patch for SCUNK
+
+---
+ engines/scumm/detection.h        | 1 +
+ engines/scumm/detection_tables.h | 5 +++++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/engines/scumm/detection.h b/engines/scumm/detection.h
+index 51927c82..de1e896a 100644
+--- a/engines/scumm/detection.h
++++ b/engines/scumm/detection.h
+@@ -216,6 +216,7 @@ enum ScummGameId {
+ 	GID_MONKEY2,
+ 	GID_PASS,
+ 	GID_SAMNMAX,
++	GID_SCUNK,		  // Generic name for SKUNK games. Should be used for testing purposes only
+ 	GID_TENTACLE,
+ 	GID_ZAK,
+ 
+diff --git a/engines/scumm/detection_tables.h b/engines/scumm/detection_tables.h
+index 4092f8b5..50b36cfd 100644
+--- a/engines/scumm/detection_tables.h
++++ b/engines/scumm/detection_tables.h
+@@ -65,6 +65,7 @@ static const PlainGameDescriptor gameDescriptions[] = {
+ 	{ "monkey2", "Monkey Island 2: LeChuck's Revenge" },
+ 	{ "pass", "Passport to Adventure" },
+ 	{ "samnmax", "Sam & Max Hit the Road" },
++	{ "scunk", "SCUNK game" },
+ 	{ "tentacle", "Day of the Tentacle" },
+ 	{ "zak", "Zak McKracken and the Alien Mindbenders" },
+ 	{ "indyloom", "Indiana Jones and the Last Crusade & Loom" },
+@@ -213,6 +214,8 @@ static const GameSettings gameVariantsTable[] = {
+ 	{"samnmax",  "", 0, GID_SAMNMAX,  6, 0, MDT_ADLIB | MDT_MIDI | MDT_PREFER_GM, GF_USE_KEY, UNK, GUIO3(GUIO_RENDEREGA, GUIO_ENHANCEMENTS, GUIO_ORIGINALGUI)},
+ 	{"samnmax",  "Floppy", 0, GID_SAMNMAX,  6, 0, MDT_ADLIB | MDT_MIDI | MDT_PREFER_GM, GF_USE_KEY, UNK, GUIO4(GUIO_NOSPEECH, GUIO_RENDEREGA, GUIO_ENHANCEMENTS, GUIO_ORIGINALGUI)},
+ 
++	{"scunk", "", 0, GID_SCUNK, 6, 0, MDT_ADLIB | MDT_MIDI | MDT_PREFER_GM, 0, UNK, GUIO0()},
++
+ 	{"ft",   "", 0, GID_FT,  7, 0, MDT_NONE, 0, UNK, GUIO4(GUIO_NOMIDI, GUIO_ENHANCEMENTS, GUIO_ORIGINALGUI, GUIO_LOWLATENCYAUDIO)},
+ 	{"ft",   "Demo", 0, GID_FT,  7, 0, MDT_NONE, GF_DEMO, UNK, GUIO3(GUIO_NOMIDI, GUIO_ORIGINALGUI, GUIO_LOWLATENCYAUDIO)},
+ 
+@@ -461,6 +464,8 @@ static const GameFilenamePattern gameFilenamesTable[] = {
+ 	{ "samnmax", "snmidemo.%03d", kGenDiskNum, UNK_LANG, UNK, 0 },
+ 	{ "samnmax", "sdemo.sm%d", kGenDiskNum, Common::DE_DEU, UNK, 0 },
+ 
++	{ "scunk", "scunk.%03d", kGenDiskNum, UNK_LANG, UNK, 0 },
++
+ 	{ "dig", "dig.la%d", kGenDiskNum, UNK_LANG, UNK, 0 },
+ 	{ "dig", "thedig.la%d", kGenDiskNum, UNK_LANG, UNK, "Demo" }, // Used by an alternate version of the demo
+ 	{ "dig", "The Dig Data", kGenUnchanged, UNK_LANG, Common::kPlatformMacintosh, 0 },
+-- 
+2.40.0
+
