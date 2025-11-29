@@ -1263,7 +1263,7 @@ int main (int argc, char** argv) {
     return -1;
   }
 
-  cost_lex = scc_lex_new(cost_main_lexer,set_start_pos,set_end_pos,NULL);
+  cost_lex = scc_lex_new(cost_main_lexer,set_start_pos,set_end_pos,NULL,NULL);
   if(!scc_lex_push_buffer(cost_lex,files->val)) return -1;
 
   if(yyparse()) return -1;

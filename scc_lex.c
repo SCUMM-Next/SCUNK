@@ -92,12 +92,47 @@ struct scc_define {
 };
 
 scc_lex_t* scc_lex_new(scc_lexer_f lexer,scc_lexer_pos_f set_start_pos,
-                       scc_lexer_pos_f set_end_pos, char** include) {
+                       scc_lexer_pos_f set_end_pos, char** include, char** define) {
     scc_lex_t* lex = calloc(1,sizeof(scc_lex_t));
     scc_lex_push_lexer(lex,lexer);
     lex->set_start_pos = set_start_pos;
     lex->set_end_pos = set_end_pos;
     lex->include = include;
+    lex->defines = define;
+
+    // if (define && strlen(*define) > 0) {
+    //     for (int i = 0; define[i]; i++) {
+    //         char* d = define[i];
+            // scc_lex_define(lex, d, NULL, 0, 0);
+            // scc_lex_is_define(lex, d);
+            // printf("Define Test: %s\n", d);
+            // lex->define[i].name = d;
+            // lex->define[i].column = 0;
+            // lex->define[i].filename = "";
+            // lex->define[i].line = 0;
+            // lex->define[i].value = "";
+    //     }
+    // }
+// if (define) {
+//     for (int i = 0; define[i]; i++) {
+//         char* d = define[i];
+//         char* eq = strchr(d, '=');
+
+//         if (eq) {
+//             // NAME=VALUE
+//             size_t name_len = eq - d;
+//             char name[name_len + 1];
+//             memcpy(name, d, name_len);
+//             name[name_len] = 0;
+
+//             const char* value = eq + 1;
+//             scc_lex_define(lex, name, value, 0, 0);
+//         } else {
+//             // NAME only
+//             scc_lex_define(lex, d, "1", 0, 0);   // default value
+//         }
+//     }
+// }
     return lex;
 }
 

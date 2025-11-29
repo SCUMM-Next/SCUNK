@@ -2065,7 +2065,7 @@ scc_source_t* scc_parser_parse(scc_parser_t* sccp,char* file,char do_deps) {
 }
 
 scc_parser_t* scc_parser_new(char** include, char** res_path,
-                             int vm_version) {
+                             int vm_version, char** define) {
   scc_target_t* target = scc_get_target(vm_version);
   scc_parser_t* p;
 
@@ -2073,7 +2073,7 @@ scc_parser_t* scc_parser_new(char** include, char** res_path,
 
   p = calloc(1,sizeof(scc_parser_t));
   p->target = target;
-  p->lex = scc_lex_new(scc_main_lexer,set_start_pos,set_end_pos,include);
+  p->lex = scc_lex_new(scc_main_lexer,set_start_pos,set_end_pos,include,define);
   p->lex->userdata = p;
   p->res_path = res_path;
   return p;
@@ -2089,6 +2089,7 @@ int scc_parser_error(scc_parser_t* sccp,YYLTYPE *loc, const char *s)  /* Called 
 
 static char** scc_include = NULL;
 static char** scc_res_path = NULL;
+static char** scc_defines = NULL;
 static int scc_do_deps = 0;
 static int scc_vm_version = 6;
 
@@ -2101,6 +2102,7 @@ static scc_param_t scc_parse_params[] = {
   { "vv", SCC_PARAM_FLAG, LOG_MSG, LOG_DBG, &scc_log_level },
   { "V", SCC_PARAM_INT, 6, 7, &scc_vm_version },
   { "help", SCC_PARAM_HELP, 0, 0, &scc_help },
+  { "D", SCC_PARAM_STR_LIST, 0, 0, &scc_defines },
   { NULL, 0, 0, 0, NULL }
 };
 
@@ -2118,7 +2120,11 @@ int main (int argc, char** argv) {
 
   if(!files) scc_print_help(&scc_help,1);
 
-  sccp = scc_parser_new(scc_include,scc_res_path,scc_vm_version);
+  sccp = scc_parser_new(scc_include,scc_res_path,scc_vm_version,scc_defines);
+  
+  /* for (int i = 0; scc_defines[i] != NULL; i++) {
+    printf("%s\n", scc_defines[i]);
+    } */
 
   for(f = files ; f ; f = f->next) {
     src = scc_parser_parse(sccp,f->val,scc_do_deps);

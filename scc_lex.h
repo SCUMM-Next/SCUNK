@@ -70,6 +70,7 @@ struct scc_lex {
     /// Defines list
     scc_define_t* define;
     unsigned num_define;
+    char** defines;
 };
 
 /// Common struct to store compiler keywords.
@@ -84,7 +85,7 @@ struct scc_keyword {
 
 /// Create a lexer instance.
 scc_lex_t* scc_lex_new(scc_lexer_f lexer,scc_lexer_pos_f set_start_pos,
-                       scc_lexer_pos_f set_end_pos, char** include);
+                       scc_lexer_pos_f set_end_pos, char** include, char** define);
 
 /// Return the next token setting lvalp and llocp
 int scc_lex_lex(YYSTYPE *lvalp, YYLTYPE *llocp,scc_lex_t* lex);

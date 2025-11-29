@@ -313,6 +313,74 @@ static int scc_preproc_lexer(scc_lex_t* lex,char* ppd,char* arg, int line, int c
         }
         return -1;
     }
+    /* ------------------ #ifdef ------------------- */
+    else if(!strcmp(ppd,"ifdef")) {
+        if(!arg || !SCC_ISALPHA(arg[0])) {
+            scc_lex_error(lex,"Invalid identifier for #ifdef: %s", arg ? arg : "(null)");
+            return 0;
+        }
+        for(i = 1 ; arg[i] && arg[i] != ' ' && arg[i] != '\t' ; i++) {
+            if(!SCC_ISALNUM(arg[i]) && arg[i] != '_') {
+                scc_lex_error(lex,"Invalid identifier for #ifdef: %s", arg);
+                return 0;
+            }
+        }
+        char name[i+1];
+        memcpy(name,arg,i);
+        name[i] = 0;
+
+        if(!scc_lex_is_define(lex, name)) {
+            /* Skip until matching #else or #endif */
+            // int saw_else = 0;
+            // if(!scc_preproc_skip_until_endif_or_else(lex, &saw_else))
+                return 0;
+            // if(saw_else)
+            //     return -1;
+            // return -1;
+        }
+        return -1;
+    }
+
+    /* ------------------ #ifndef ------------------ */
+    else if(!strcmp(ppd,"ifndef")) {
+        if(!arg || !SCC_ISALPHA(arg[0])) {
+            scc_lex_error(lex,"Invalid identifier for #ifndef: %s", arg ? arg : "(null)");
+            return 0;
+        }
+        for(i = 1 ; arg[i] && arg[i] != ' ' && arg[i] != '\t' ; i++) {
+            if(!SCC_ISALNUM(arg[i]) && arg[i] != '_') {
+                scc_lex_error(lex,"Invalid identifier for #ifndef: %s", arg);
+                return 0;
+            }
+        }
+        char name[i+1];
+        memcpy(name,arg,i);
+        name[i] = 0;
+
+        if(scc_lex_is_define(lex, name)) {
+            // int saw_else = 0;
+            // if(!scc_preproc_skip_until_endif_or_else(lex, &saw_else))
+                return 0;
+            // if(saw_else)
+            //     return -1;
+            // return -1;
+        }
+        return -1;
+    }
+
+    /* ------------------ #else -------------------- */
+    else if(!strcmp(ppd,"else")) {
+        /* We should never execute inside skipped blocks */
+        // scc_preproc_skip_block(lex);
+        return -1;
+    }
+
+    /* ------------------ #endif ------------------- */
+    else if(!strcmp(ppd,"endif")) {
+        /* We should never execute inside skipped blocks */
+        // scc_preproc_skip_block(lex);
+        return -1;
+    }
                 
 
     //printf("Got preproc: '%s' -> '%s'\n",ppd,arg);
